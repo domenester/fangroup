@@ -2,6 +2,8 @@ import { Grid, Button } from '@mui/material'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { initialConfig } from '../config/config'
 
 const rootSx = {
   margin: 'auto',
@@ -20,6 +22,17 @@ const buttonSx = {
 
 export default function Home() {
   const router = useRouter()
+  const [config, setConfig] = useState({})
+
+  useEffect(() => {
+    if (localStorage) {
+      const _config = JSON.parse(localStorage.getItem('fangroup_jogodamemoria_configuracao'))
+      if (!_config) {
+        return localStorage.setItem('fangroup_jogodamemoria_configuracao', JSON.stringify(initialConfig))
+      }
+      setConfig(_config)
+    }
+  }, [])
   return (
     <Grid container sx={{
       margin: 'auto',
@@ -40,7 +53,10 @@ export default function Home() {
           variant="contained"
           color="primary"
           sx={buttonSx}
-          onClick={() => router.push('/jogo')}
+          onClick={() => {
+            if (config.activateRegister) return router.push('/registro')
+            return router.push('/jogo')
+          }}
         >
           Jogar
         </Button>
@@ -50,6 +66,7 @@ export default function Home() {
           variant="contained"
           color="primary"
           sx={buttonSx}
+          onClick={() => router.push('/configuracao')}
         >
           Configurações
         </Button>
