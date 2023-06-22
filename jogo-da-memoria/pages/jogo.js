@@ -24,7 +24,7 @@ const fixedIds = () => {
   return ids
 }
 
-function Home() {
+function Jogo() {
   const router = useRouter()
 
   const [lockBoard, setLockBoard] = useState(false)
@@ -161,6 +161,6 @@ function Home() {
   )
 }
 
-export default dynamic(() => Promise.resolve(Home), {
+export default dynamic(() => Promise.resolve(Jogo), {
   ssr: false
 });
