@@ -1,8 +1,15 @@
-import { Grid, Button, TextField, Switch, Box, Paper, Typography } from '@mui/material'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import {
+  Grid,
+  Button,
+  TextField,
+  Switch,
+  Box,
+  Paper,
+  Typography
+} from '@mui/material'
+
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const rootSx = {
   margin: 'auto',
@@ -21,7 +28,7 @@ const buttonSx = {
 
 export default function Configuracao() {
   const router = useRouter()
-  const [formData, setFormData] = useState({} as any)
+  const [formData, setFormData] = useState({lgpd: false} as any)
 
   return (
     <Box sx={{
@@ -77,6 +84,15 @@ export default function Configuracao() {
             InputLabelProps={{
               shrink: true,
             }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>
+            Aceitar termos LGPD?
+          </Typography>
+          <Switch
+            checked={formData.lgpd}
+            onChange={(e) => setFormData({ ...formData, lgpd: e.target.checked || false })}
           />
         </Grid>
         <Grid item xs={12}>

@@ -1,6 +1,4 @@
-import { Grid, Button, TextField, Switch, Box, Paper, Typography } from '@mui/material'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { Grid, Button, Switch, Box, Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { getMemoryGameConfig, setMemoryGameConfig } from '../../config/localStorage'

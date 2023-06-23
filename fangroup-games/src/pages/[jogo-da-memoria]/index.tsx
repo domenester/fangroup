@@ -1,6 +1,4 @@
 import { Grid, Button } from '@mui/material'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { initialConfig } from '@/config/initial'
