@@ -1,10 +1,11 @@
-import { Grid } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Modal from '@/components/modal'
 import { fixedIds, fixedRandomSorts } from './utils';
+import { buttonSx } from '.'
 interface ICardClicked {
   id: string
   name: string
@@ -85,6 +86,7 @@ function Jogo() {
     for (let i = 0; i < cards.length; i++) {
       const imageName = cards[i]
       const id = ids[first ? i : i + cards.length]
+      console.log('firstCardClicked.id: ', firstCardClicked.id, id);
       grid.push(
         <Grid item xs={12} sm={4} sx={{display: 'flex', alignItems: 'center'}}>
           <div
@@ -92,8 +94,8 @@ function Jogo() {
             className={`
               memory-card
               ${
-                firstCardClicked.id === id ||
-                secondCardClicked.id === id ||
+                (firstCardClicked.id && firstCardClicked.id === id) ||
+                (secondCardClicked.id && secondCardClicked.id === id) ||
                 imagesFound.includes(imageName) ?
                 'flip' :  ''
               }
@@ -156,9 +158,17 @@ function Jogo() {
         onCancel={() => router.push('/jogo-da-memoria')}
         onClose={() => setShowPopup(false)}
       />
+      <Button
+        variant='contained'
+        sx={buttonSx}
+        onClick={() => router.push('/jogo-da-memoria')}
+      >
+        Voltar
+      </Button>
       <Grid container sx={{
         margin: 'auto',
         padding: '5em',
+        paddingTop: '2em',
         display: 'flex',
         justifyContent: 'center',
         minHeight: '100vh',

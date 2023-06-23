@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { getMemoryGameConfig, setMemoryGameConfig } from '../../config/localStorage'
 
 const rootSx = {
   margin: 'auto',
@@ -24,7 +25,7 @@ export default function Configuracao() {
   const [config, setConfig] = useState({} as any)
   useEffect(() => {
     if (localStorage) {
-      const _config = JSON.parse(localStorage.getItem('fangroup_jogodamemoria_configuracao') || '')
+      const _config = getMemoryGameConfig()
       console.log('_config: ', _config);
       if (_config) {
         setConfig(_config)
@@ -65,10 +66,10 @@ export default function Configuracao() {
             color="primary"
             sx={buttonSx}
             onClick={() => {
-              localStorage.setItem('fangroup_jogodamemoria_configuracao', JSON.stringify({
+              setMemoryGameConfig({
                 ...localStorage,
                 ...config,
-              }))
+              })
               router.push('/jogo-da-memoria')
             }}
           >
