@@ -1,27 +1,10 @@
-import { Grid, Button, Card, Paper } from '@mui/material'
+import { Grid } from '@mui/material'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid';
 import dynamic from 'next/dynamic'
 import Modal from '@/components/modal'
-
-const fixedRandomSorts = (cardsLength: number) => {
-  const sorts = []
-  for (let i = 0; i < cardsLength * 2; i++) {
-    sorts.push(Math.random())
-  }
-  return sorts
-}
-
-const fixedIds = (cardsLength: number) => {
-  const ids = []
-  for (let i = 0; i < cardsLength*2; i++) {
-    ids.push(uuidv4())
-  }
-  return ids
-}
-
+import { fixedIds, fixedRandomSorts } from './utils';
 interface ICardClicked {
   id: string
   name: string
@@ -47,6 +30,7 @@ function Jogo() {
       setIds(fixedIds(cards.length))
     }
   }, [cards])
+
   useEffect(() => {
     const runAsync = async () => {
       const response = await fetch(
