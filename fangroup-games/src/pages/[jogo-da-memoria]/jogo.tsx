@@ -6,6 +6,8 @@ import dynamic from 'next/dynamic'
 import Modal from '@/components/modal'
 import { fixedIds, fixedRandomSorts } from './utils';
 import { buttonSx } from '.'
+import { getMemoryGameConfig } from '../../config/localStorage'
+import { Timer } from './timer'
 interface ICardClicked {
   id: string
   name: string
@@ -24,6 +26,16 @@ function Jogo() {
   const [showPopup, setShowPopup] = useState(false)
 
   const [cards, setCards] = useState([])
+
+  const [config, setConfig] = useState({} as any)
+  useEffect(() => {
+    if (localStorage) {
+      const _config = getMemoryGameConfig()
+      if (_config) {
+        setConfig(_config)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (cards.length) {
@@ -44,12 +56,14 @@ function Jogo() {
   }, [])
 
   const handleReset = async () => {
+    setModalTitle(successTitle)
     unflipCards()
     setImagesFound([])
     const waitUnflip = setTimeout(() => {
       setSorts(fixedRandomSorts(cards.length))
       clearTimeout(waitUnflip)
     }, 500)
+    setResetTimer(!resetTimer)
   }
 
   const unflipCards = () => {
@@ -146,17 +160,25 @@ function Jogo() {
       .map(({ value }) => value)
   }
 
+  const successTitle = 'Parabéns, você finalizou o jogo!'
+  const timeoutTitle = 'Tempo esgotado, tente de novo!'
+
+  const [modalTitle, setModalTitle] = useState(successTitle)
+  const [resetTimer, setResetTimer] = useState(false)
   return (
     <>
       <Modal
         open={showPopup}
-        title={'Parabéns, você finalizou o jogo!'}
+        title={modalTitle}
         onReset={() => {
           setShowPopup(false)
           handleReset()
         }}
         onCancel={() => router.push('/jogo-da-memoria')}
-        onClose={() => setShowPopup(false)}
+        onClose={(event, reason) => {
+          if (reason && reason == "backdropClick") return;
+          setShowPopup(false)
+        }}
       />
       <Button
         variant='contained'
@@ -178,6 +200,20 @@ function Jogo() {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
       }}>
+        {
+          config.timer && (
+            <Grid item xs={12} sx={{display: 'flex', alignItems: 'center'}}>
+              <Timer
+                resetTimer={resetTimer}
+                duration={+config.timer}
+                onTimeout={() => {
+                  setModalTitle(timeoutTitle)
+                  setShowPopup(true)
+                }}
+              />
+            </Grid>
+          )
+        }
         {
           renderGrid()
         }

@@ -1,3 +1,5 @@
+import { initialConfig } from "./initial"
+
 const prefixes = {
   global: 'fangroup_',
   memoryGameConfig: 'jogodamemoria_configuracao',
@@ -15,7 +17,11 @@ export const setData = (key: string, data: any) => {
 }
 
 export const getMemoryGameConfig = () => {
-  return JSON.parse(getData(prefixes.memoryGameConfig) || '{}')
+  return (
+    getData(prefixes.memoryGameConfig) ?
+    JSON.parse(getData(prefixes.memoryGameConfig) || '{}') :
+    initialConfig
+  )
 }
 
 export const setMemoryGameConfig = (config: any) => {

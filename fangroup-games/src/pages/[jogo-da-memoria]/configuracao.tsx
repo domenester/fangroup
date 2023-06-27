@@ -1,4 +1,4 @@
-import { Grid, Button, Switch, Box, Paper, Typography } from '@mui/material'
+import { Grid, Button, Switch, Box, Paper, Typography, TextField } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { getMemoryGameConfig, setMemoryGameConfig } from '../../config/localStorage'
@@ -23,6 +23,7 @@ export default function Configuracao() {
   const [config, setConfig] = useState({} as any)
   useEffect(() => {
     if (localStorage) {
+      console.log('localStorage: ', localStorage);
       const _config = getMemoryGameConfig()
       console.log('_config: ', _config);
       if (_config) {
@@ -49,13 +50,20 @@ export default function Configuracao() {
         margin: 5,
         padding: 5
       }}>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
           <Typography>
             Ativar Cadastro?
           </Typography>
           <Switch
             checked={config.activateRegister}
             onChange={(e) => setConfig({ ...config, activateRegister: e.target.checked })}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label={'Tempo do cronômetro (segundos):'}
+            value={config.timer}
+            onChange={(e) => setConfig({ ...config, timer: e.target.value })}
           />
         </Grid>
         <Grid item xs={12}>

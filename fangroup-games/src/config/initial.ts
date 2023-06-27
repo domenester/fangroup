@@ -1,3 +1,4 @@
 export const initialConfig = {
-  "activateRegister": false
+  "activateRegister": false,
+  "timer": 0
 }
