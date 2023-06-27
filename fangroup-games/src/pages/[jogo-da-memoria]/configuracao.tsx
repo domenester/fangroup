@@ -23,9 +23,7 @@ export default function Configuracao() {
   const [config, setConfig] = useState({} as any)
   useEffect(() => {
     if (localStorage) {
-      console.log('localStorage: ', localStorage);
       const _config = getMemoryGameConfig()
-      console.log('_config: ', _config);
       if (_config) {
         setConfig(_config)
       }

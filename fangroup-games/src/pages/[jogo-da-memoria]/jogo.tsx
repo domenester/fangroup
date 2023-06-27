@@ -102,7 +102,7 @@ function Jogo() {
       const id = ids[first ? i : i + cards.length]
       console.log('firstCardClicked.id: ', firstCardClicked.id, id);
       grid.push(
-        <Grid item xs={12} sm={4} sx={{display: 'flex', alignItems: 'center'}}>
+        <Grid item xs={12} md={3} sm={4} sx={{display: 'flex', alignItems: 'center'}}>
           <div
             id={id}
             className={`
@@ -187,13 +187,14 @@ function Jogo() {
       >
         Voltar
       </Button>
-      <Grid container sx={{
+      <Grid container spacing={3} sx={{
         margin: 'auto',
         padding: '5em',
         paddingTop: '2em',
         display: 'flex',
         justifyContent: 'center',
         minHeight: '100vh',
+        height: '100%',
         backgroundImage: 'url(/imagens/jogo-da-memoria/background.jpg)',
         width: '100%',
         backgroundPosition: 'center',
@@ -201,8 +202,8 @@ function Jogo() {
         backgroundSize: 'cover',
       }}>
         {
-          config.timer && (
-            <Grid item xs={12} sx={{display: 'flex', alignItems: 'center'}}>
+          !!(+config.timer) && (
+            <Grid item xs={12} sx={{display: 'flex', alignItems: 'center', margin: 2}}>
               <Timer
                 resetTimer={resetTimer}
                 duration={+config.timer}
@@ -210,6 +211,7 @@ function Jogo() {
                   setModalTitle(timeoutTitle)
                   setShowPopup(true)
                 }}
+                gameFinished={showPopup}
               />
             </Grid>
           )

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 interface ITimer {
   duration: number,
   onTimeout: () => void,
-  resetTimer: boolean
+  resetTimer: boolean,
+  gameFinished: boolean
 }
 
 const getMinutesLabel = (seconds: number) => {
@@ -17,7 +18,7 @@ const getSecondsLabel = (seconds: number) => {
   return `${value < 10 ? '0' : ''}${value}`
 }
 
-export function Timer ({duration, onTimeout, resetTimer}: ITimer) {
+export function Timer ({duration, onTimeout, resetTimer, gameFinished}: ITimer) {
   const [actualSecond, setActualSecond] = useState<number>(duration)
   const [minutes, setMinutes] = useState('00')
   const [seconds, setSeconds] = useState('00')
@@ -26,6 +27,10 @@ export function Timer ({duration, onTimeout, resetTimer}: ITimer) {
     const timer = setInterval(
       () => {
         console.log('timer on');
+        if (gameFinished) {
+          clearInterval(timer)
+          return
+        }
         setMinutes(
           getMinutesLabel(actualSecond)
         )
