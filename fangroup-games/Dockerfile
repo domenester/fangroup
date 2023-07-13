@@ -21,3 +21,6 @@ EXPOSE 3000
 
 # Start the Next.js application
 CMD ["npm", "run", "dev"]
+
+# docker build --tag "fangroup" .
+# docker run -p 3000:3000 --detach fangroup
