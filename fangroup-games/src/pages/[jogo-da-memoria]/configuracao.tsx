@@ -62,6 +62,9 @@ export default function Configuracao() {
             label={'Tempo do cronômetro (segundos):'}
             value={config.timer}
             onChange={(e) => setConfig({ ...config, timer: e.target.value })}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
         </Grid>
         <Grid item xs={12}>

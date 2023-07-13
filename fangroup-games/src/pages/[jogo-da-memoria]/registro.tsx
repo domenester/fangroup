@@ -10,6 +10,8 @@ import {
 
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import Keyboard from 'react-simple-keyboard';
+import 'react-simple-keyboard/build/css/index.css';
 
 const rootSx = {
   margin: 'auto',
@@ -29,6 +31,47 @@ const buttonSx = {
 export default function Configuracao() {
   const router = useRouter()
   const [formData, setFormData] = useState({lgpd: false} as any)
+
+  const [activeInput, setActiveInput] = useState<string>('nome')
+
+  const [keyboardLayoutName, setKeyboardLayoutName] = useState('default')
+
+  const [capsOn, setCapsOn] = useState(false)
+
+  const onKeyboardKeyPess = (input: string) => {
+    if (input === '{shift}') {
+      return setKeyboardLayoutName(
+        keyboardLayoutName === 'default' ? 'shift' : 'default'
+      )
+    }
+
+    if (input === '{lock}') {
+      setCapsOn(!capsOn)
+      return setKeyboardLayoutName(
+        keyboardLayoutName === 'default' ? 'shift' : 'default'
+      )
+    }
+
+    if (input === '{enter}') {
+      return setActiveInput(({
+        'nome': 'email',
+        'email': 'telefone',
+        'telefone': 'nome'
+      } as any)[activeInput])
+    }
+
+    if (input === '{bksp}') {
+      if (!formData[activeInput]) return
+      return setFormData({ ...formData, [activeInput]: formData[activeInput].substring(0, formData[activeInput].length -1) })
+    }
+
+    if (input === '{space}') {
+      return setFormData({ ...formData, [activeInput]: `${formData[activeInput]} ` })
+    }
+
+    setFormData({ ...formData, [activeInput]: `${formData[activeInput] || ''}${input}` })
+    if (keyboardLayoutName === 'shift' && !capsOn) setKeyboardLayoutName('default')
+  }
 
   return (
     <Box sx={{
@@ -57,6 +100,7 @@ export default function Configuracao() {
             variant={'outlined'}
             value={formData.nome}
             onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+            onClick={() => setActiveInput('nome')}
             InputLabelProps={{
               shrink: true,
             }}
@@ -69,6 +113,7 @@ export default function Configuracao() {
             variant={'outlined'}
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            onClick={() => setActiveInput('email')}
             InputLabelProps={{
               shrink: true,
             }}
@@ -81,6 +126,7 @@ export default function Configuracao() {
             variant={'outlined'}
             value={formData.telefone}
             onChange={(e) => setFormData({ ...formData, telefone: e.target.value })}
+            onClick={() => setActiveInput('telefone')}
             InputLabelProps={{
               shrink: true,
             }}
@@ -93,6 +139,28 @@ export default function Configuracao() {
           <Switch
             checked={formData.lgpd}
             onChange={(e) => setFormData({ ...formData, lgpd: e.target.checked || false })}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Keyboard
+            layout={{
+              default: [
+                "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
+                "q w e r t y u i o p [ ] \\",
+                "{lock} a s d f g h j k l ; ' {enter}",
+                "{shift} z x c v b n m , . / {shift}",
+                ".com @gmail.com @yahoo.com @hotmail.com @ {space}"
+              ],
+              shift: [
+                "~ ! @ # $ % ^ & * ( ) _ + {bksp}",
+                "Q W E R T Y U I O P { } |",
+                '{lock} A S D F G H J K L : " {enter}',
+                "{shift} Z X C V B N M < > ? {shift}",
+                ".com @gmail.com @yahoo.com @hotmail.com @ {space}"
+              ]
+            }}
+            layoutName={keyboardLayoutName}
+            onKeyPress={onKeyboardKeyPess}
           />
         </Grid>
         <Grid item xs={12}>
