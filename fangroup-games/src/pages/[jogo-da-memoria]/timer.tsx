@@ -69,3 +69,5 @@ export function Timer ({duration, onTimeout, resetTimer, gameFinished}: ITimer) 
     </Box>
   )
 }
+
+export default Timer;

@@ -15,3 +15,5 @@ export const fixedIds = (cardsLength: number) => {
   }
   return ids
 }
+
+export default fixedRandomSorts

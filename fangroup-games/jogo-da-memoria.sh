@@ -1,2 +1,5 @@
 #!/bin/bash
-chmod +x /home/diogo/Projetos/fangroup/fangroup-games/jogo-da-memoria.sh && npm run dev & google-chrome http://localhost:3000
+cd C:\\Users\\Note Dell 2\\Desktop\\jogo-da-memoria\\fangroup-main\\fangroup-main\\fangroup-games
+docker rm $(docker stop $(docker ps -a -q --filter ancestor=fangroup --format=\"{{.ID}}\"))
+docker build --tag "fangroup" .
+docker run -p 3000:3000 --restart=unless-stopped --detach fangroup

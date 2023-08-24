@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
+      <meta name="viewport" content="width=device-width, user-scalable=no"></meta>
       <body>
         <Main />
         <NextScript />
