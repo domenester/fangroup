@@ -62,7 +62,7 @@ function Jogo() {
     const waitUnflip = setTimeout(() => {
       setSorts(fixedRandomSorts(cards.length))
       clearTimeout(waitUnflip)
-    }, 500)
+    }, 750)
     setResetTimer(!resetTimer)
   }
 
@@ -84,7 +84,7 @@ function Jogo() {
         ])
       }
       unflipCards()
-    }, 1500)
+    }, 500)
     return () => clearTimeout(timeout);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [secondCardClicked])
@@ -100,7 +100,6 @@ function Jogo() {
     for (let i = 0; i < cards.length; i++) {
       const imageName = cards[i]
       const id = ids[first ? i : i + cards.length]
-      console.log('firstCardClicked.id: ', firstCardClicked.id, id);
       grid.push(
         <Grid item xs={12} md={3} sm={4} sx={{display: 'flex', alignItems: 'center'}}>
           <div
@@ -140,7 +139,7 @@ function Jogo() {
               className="back-face"
               width={200}
               height={200}
-              src={`/imagens/jogo-da-memoria/capa.jpg`}
+              src={`/imagens/jogo-da-memoria/capa.jpg?now=${(new Date()).getDate()}`}
               alt="Capa"
             />
           </div>
