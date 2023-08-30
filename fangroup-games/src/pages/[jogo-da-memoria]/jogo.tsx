@@ -132,14 +132,14 @@ function Jogo() {
               className="front-face"
               width={200}
               height={200}
-              src={`/imagens/jogo-da-memoria/cards/${imageName}`}
+              src={`/imagens/jogo-da-memoria/cards/${imageName}?now=${(new Date()).getDate()}`}
               alt="Frente"
             />
             <Image
               className="back-face"
               width={200}
               height={200}
-              src={`/imagens/jogo-da-memoria/capa.jpg?now=${(new Date()).getDate()}`}
+              src={`/imagens/jogo-da-memoria/capa.png?now=${(new Date()).getDate()}`}
               alt="Capa"
             />
           </div>

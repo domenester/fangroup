@@ -30,7 +30,7 @@ const buttonSx = {
 
 export default function Configuracao() {
   const router = useRouter()
-  const [formData, setFormData] = useState({lgpd: false} as any)
+  const [formData, setFormData] = useState({lgpd: false, corretor: false} as any)
 
   const [activeInput, setActiveInput] = useState<string>('nome')
 
@@ -119,7 +119,7 @@ export default function Configuracao() {
             }}
           />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <TextField
             fullWidth
             label={'Telefone: '}
@@ -131,8 +131,17 @@ export default function Configuracao() {
               shrink: true,
             }}
           />
+        </Grid> */}
+        <Grid item xs={12} md={6}>
+          <Typography>
+            Corretor?
+          </Typography>
+          <Switch
+            checked={formData.corretor}
+            onChange={(e) => setFormData({ ...formData, corretor: e.target.checked || false })}
+          />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
           <Typography>
             Aceitar termos LGPD?
           </Typography>
