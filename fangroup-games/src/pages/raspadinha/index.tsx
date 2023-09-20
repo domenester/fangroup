@@ -1,17 +1,8 @@
 import { Grid, Button } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { initialConfig } from '@/config/initial'
-import { getMemoryGameConfig, setMemoryGameConfig } from '../../config/localStorage'
-
-const rootSx = {
-  margin: 'auto',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  minHeight: '100vh',
-  textAlign: 'center',
-}
+import { scratchGameInitialConfig } from '@/config/initial'
+import { getScratchGameConfig, setScratchGameConfig } from '../../config/localStorage'
 
 export const buttonSx = {
   textTransform: 'none',
@@ -25,9 +16,9 @@ export default function Home() {
 
   useEffect(() => {
     if (localStorage) {
-      const _config = getMemoryGameConfig()
+      const _config = getScratchGameConfig()
       if (!_config) {
-        return setMemoryGameConfig(initialConfig)
+        return setScratchGameConfig(scratchGameInitialConfig)
       }
       setConfig(_config)
     }
@@ -40,7 +31,7 @@ export default function Home() {
       alignItems: 'center',
       minHeight: '100vh',
       textAlign: 'center',
-      backgroundImage: 'url(/imagens/jogo-da-memoria/background.jpg)',
+      backgroundImage: 'url(/imagens/raspadinha/background.jpg)',
       width: '100%',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
@@ -53,8 +44,8 @@ export default function Home() {
           color="primary"
           sx={buttonSx}
           onClick={() => {
-            if (config.activateRegister) return router.push('/jogo-da-memoria/registro')
-            return router.push('/jogo-da-memoria/jogo')
+            if (config.activateRegister) return router.push('/raspadinha/registro')
+            return router.push('/raspadinha/jogo')
           }}
         >
           Jogar
@@ -65,7 +56,7 @@ export default function Home() {
           variant="contained"
           color="primary"
           sx={buttonSx}
-          onClick={() => router.push('/jogo-da-memoria/configuracao')}
+          onClick={() => router.push('/raspadinha/configuracao')}
         >
           Configurações
         </Button>
