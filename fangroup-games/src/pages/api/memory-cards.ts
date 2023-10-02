@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import fsPromises from 'fs/promises';
 import path from 'path';
 
-const dataFilePath = path.join(process.cwd(), 'public/imagens/jogo-da-memoria/cards');
+const dataFilePath = path.join(process.cwd(), 'imagens/jogo-da-memoria/cards');
 
 type Data = {
   error?: any

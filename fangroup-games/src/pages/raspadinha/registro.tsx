@@ -189,7 +189,7 @@ export default function Configuracao() {
                   body: JSON.stringify(formData)
                 }
               )
-              router.push('/jogo-da-memoria/jogo')
+              router.push('/raspadinha/jogo')
             }}
           >
             Jogar
@@ -200,7 +200,7 @@ export default function Configuracao() {
             variant="contained"
             color="primary"
             sx={buttonSx}
-            onClick={() => router.push('/jogo-da-memoria')}
+            onClick={() => router.push('/raspadinha')}
           >
             Voltar
           </Button>

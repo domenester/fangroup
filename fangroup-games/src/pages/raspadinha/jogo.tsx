@@ -115,7 +115,7 @@ function Jogo() {
     return cardsGrid
   }
 
-  const onModalClose = () => {
+  const onModalClose = (reload = true) => {
     let cards = config.cards
     if (successCard) {
       cards = cards.map((card: any) => {
@@ -131,8 +131,7 @@ function Jogo() {
       cards
     })
     setShowPopup(false)
-    setTimeout(() => window.location.reload(), 500)
-    
+    if (reload) setTimeout(() => window.location.reload(), 500)
   }
 
   return (
@@ -140,8 +139,11 @@ function Jogo() {
       <Modal
         open={showPopup}
         title={modalTitle}
-        onReset={onModalClose}
-        onCancel={() => router.push('/raspadinha')}
+        onReset={() => onModalClose()}
+        onCancel={() => {
+          onModalClose(false)
+          setTimeout(() => router.push('/raspadinha'), 500)
+        }}
         onClose={(event, reason) => {
           if (reason && reason == "backdropClick") return;
           onModalClose()
