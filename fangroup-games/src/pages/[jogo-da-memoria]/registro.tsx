@@ -96,24 +96,42 @@ export default function Configuracao() {
         <Grid item xs={12}>
           <TextField
             fullWidth
-            label={'Nome: '}
+            label={'Email: '}
             variant={'outlined'}
-            value={formData.nome}
-            onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-            onClick={() => setActiveInput('nome')}
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            onClick={() => setActiveInput('email')}
             InputLabelProps={{
               shrink: true,
+            }}
+            onBlur={async () => {
+              const response = await fetch(
+                '../api/verify-register',
+                {
+                  method: 'POST',
+                  headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(formData)
+                }
+              )
+              const {alreadyRegistered} = await response.json()
+              if (alreadyRegistered) {
+                window.alert('Email já utilizado. Clique em Ok para Jogar.')
+                router.push('/jogo-da-memoria/jogo')
+              }
             }}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             fullWidth
-            label={'Email: '}
+            label={'Nome: '}
             variant={'outlined'}
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            onClick={() => setActiveInput('email')}
+            value={formData.nome}
+            onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+            onClick={() => setActiveInput('nome')}
             InputLabelProps={{
               shrink: true,
             }}
@@ -200,7 +218,7 @@ export default function Configuracao() {
             variant="contained"
             color="primary"
             sx={buttonSx}
-            onClick={() => router.push('/jogo-da-memoria')}
+            onClick={() => router.push('/jogo-da-memoria/jogar')}
           >
             Voltar
           </Button>
