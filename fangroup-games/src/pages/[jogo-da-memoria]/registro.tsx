@@ -165,7 +165,12 @@ export default function Configuracao() {
           </Typography>
           <Switch
             checked={formData.lgpd}
-            onChange={(e) => setFormData({ ...formData, lgpd: e.target.checked || false })}
+            onChange={(e) => {
+              if (e.target.checked) {
+                window.alert('O presente termo de adequação LGPD, tem como objetivo garantir a adequação da Empresa GBOEX à Lei Geral de Proteção de Dados ( Lei 13.709/2018). A GBOEX afirma que adota todas as medidas necessárias para assegurar a observância a LGPD, se compromete a manter a confidencialidade e a integridade de todos os dados pessoais mantidos ou consultados/transmitidos eletronicamente, para garantir a proteção desses dados contra acesso não autorizado, destruição, uso, modificação, divulgação ou perda acidental ou indevida. Para fins de clareza, os dados pessoais correspondem as informações relacionadas as pessoas naturais identificadas ou identificáveis.')
+              }
+              setFormData({ ...formData, lgpd: e.target.checked || false })
+            }}
           />
         </Grid>
         <Grid item xs={12}>
