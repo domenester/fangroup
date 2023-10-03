@@ -47,6 +47,16 @@ export default function Home() {
           Configurações
         </Button>
       </Grid>
+      <Grid item xs={12}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={buttonSx}
+          onClick={() => router.push('/jogo-da-memoria/informacoes')}
+        >
+          Informações
+        </Button>
+      </Grid>
     </Grid>
   )
 }
