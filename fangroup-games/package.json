@@ -6,8 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "docker": "docker build --tag \"fangroup\" . && docker run -p 3000:3000 --detach fangroup",
+    "start:docker": "docker build --tag \"fangroup\" . && docker run -p 3000:3000 --name fangroup --detach fangroup",
     "docker:restart": "(docker rm $(docker stop $(docker ps -a -q --filter ancestor=fangroup --format=\"{{.ID}}\")) && npm run docker) || npm run docker",
+    "copy:register": "docker cp (docker container ls  | grep 'fangroup' | awk '{print $1}'):/app/registros.json /home/diogo/Documentos/fangroup/registros.json",
     "lint": "next lint"
   },
   "dependencies": {

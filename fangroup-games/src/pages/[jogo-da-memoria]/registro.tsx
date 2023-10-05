@@ -8,7 +8,7 @@ import {
   Typography
 } from '@mui/material'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import ModalLGPD from '../../components/modal-lgpd';
@@ -75,6 +75,30 @@ export default function Configuracao() {
 
   const [openLgpd, setOpenLgpd] = useState(false)
 
+  const verifyEmail = async () => {
+    if (!formData.email) return
+    const response = await fetch(
+      '../api/verify-register',
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      }
+    )
+    const {alreadyRegistered} = await response.json()
+    if (alreadyRegistered) {
+      window.alert('Email já utilizado. Clique em Ok para Jogar.')
+      router.push('/jogo-da-memoria/jogo')
+    }
+  }
+
+  useEffect(() => {
+    verifyEmail()
+  }, [activeInput])
+
   return (
     <Box sx={{
       margin: 'auto',
@@ -106,24 +130,6 @@ export default function Configuracao() {
             InputLabelProps={{
               shrink: true,
             }}
-            onBlur={async () => {
-              const response = await fetch(
-                '../api/verify-register',
-                {
-                  method: 'POST',
-                  headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify(formData)
-                }
-              )
-              const {alreadyRegistered} = await response.json()
-              if (alreadyRegistered) {
-                window.alert('Email já utilizado. Clique em Ok para Jogar.')
-                router.push('/jogo-da-memoria/jogo')
-              }
-            }}
           />
         </Grid>
         <Grid item xs={12}>
@@ -139,7 +145,7 @@ export default function Configuracao() {
             }}
           />
         </Grid>
-        {/* <Grid item xs={12}>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             label={'Telefone: '}
@@ -151,7 +157,7 @@ export default function Configuracao() {
               shrink: true,
             }}
           />
-        </Grid> */}
+        </Grid>
         <Grid item xs={12} md={6}>
           <Typography>
             Corretor?
