@@ -7,11 +7,11 @@ import {
   Paper,
   Typography
 } from '@mui/material'
-
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
+import ModalLGPD from '../../components/modal-lgpd';
 
 const rootSx = {
   margin: 'auto',
@@ -73,6 +73,32 @@ export default function Configuracao() {
     if (keyboardLayoutName === 'shift' && !capsOn) setKeyboardLayoutName('default')
   }
 
+  const [openLgpd, setOpenLgpd] = useState(false)
+
+  const verifyEmail = async () => {
+    if (!formData.email) return
+    const response = await fetch(
+      '../api/verify-register',
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      }
+    )
+    const {alreadyRegistered} = await response.json()
+    if (alreadyRegistered) {
+      window.alert('Email já utilizado. Clique em Ok para Jogar.')
+      router.push('/jogo-da-memoria/jogo')
+    }
+  }
+
+  useEffect(() => {
+    verifyEmail()
+  }, [activeInput])
+
   return (
     <Box sx={{
       margin: 'auto',
@@ -96,6 +122,19 @@ export default function Configuracao() {
         <Grid item xs={12}>
           <TextField
             fullWidth
+            label={'Email: '}
+            variant={'outlined'}
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            onClick={() => setActiveInput('email')}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
             label={'Nome: '}
             variant={'outlined'}
             value={formData.nome}
@@ -109,19 +148,6 @@ export default function Configuracao() {
         <Grid item xs={12}>
           <TextField
             fullWidth
-            label={'Email: '}
-            variant={'outlined'}
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            onClick={() => setActiveInput('email')}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        {/* <Grid item xs={12}>
-          <TextField
-            fullWidth
             label={'Telefone: '}
             variant={'outlined'}
             value={formData.telefone}
@@ -131,7 +157,7 @@ export default function Configuracao() {
               shrink: true,
             }}
           />
-        </Grid> */}
+        </Grid>
         <Grid item xs={12} md={6}>
           <Typography>
             Corretor?
@@ -147,65 +173,85 @@ export default function Configuracao() {
           </Typography>
           <Switch
             checked={formData.lgpd}
-            onChange={(e) => setFormData({ ...formData, lgpd: e.target.checked || false })}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Keyboard
-            layout={{
-              default: [
-                "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
-                "q w e r t y u i o p [ ] \\",
-                "{lock} a s d f g h j k l ; ' {enter}",
-                "{shift} z x c v b n m , . / {shift}",
-                ".com @gmail.com @yahoo.com @hotmail.com @ {space}"
-              ],
-              shift: [
-                "~ ! @ # $ % ^ & * ( ) _ + {bksp}",
-                "Q W E R T Y U I O P { } |",
-                '{lock} A S D F G H J K L : " {enter}',
-                "{shift} Z X C V B N M < > ? {shift}",
-                ".com @gmail.com @yahoo.com @hotmail.com @ {space}"
-              ]
+            onChange={(e) => {
+              if (e.target.checked) setOpenLgpd(true)
+              setFormData({ ...formData, lgpd: e.target.checked || false })
             }}
-            layoutName={keyboardLayoutName}
-            onKeyPress={onKeyboardKeyPess}
           />
         </Grid>
         <Grid item xs={12}>
+          <div>
+            <Keyboard
+              layout={{
+                default: [
+                  "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
+                  "q w e r t y u i o p [ ] \\",
+                  "{lock} a s d f g h j k l ; ' {enter}",
+                  "{shift} z x c v b n m , . / {shift}",
+                  ".com @gmail.com @yahoo.com @hotmail.com @ {space}"
+                ],
+                shift: [
+                  "~ ! @ # $ % ^ & * ( ) _ + {bksp}",
+                  "Q W E R T Y U I O P { } |",
+                  '{lock} A S D F G H J K L : " {enter}',
+                  "{shift} Z X C V B N M < > ? {shift}",
+                  ".com @gmail.com @yahoo.com @hotmail.com @ {space}"
+                ]
+              }}
+              layoutName={keyboardLayoutName}
+              onKeyPress={onKeyboardKeyPess}
+            />
+          </div>
+        </Grid>
+        <Grid item xs={6}>
           <Button
             variant="contained"
             color="primary"
-            sx={buttonSx}
+            sx={{
+              ...buttonSx,
+              fontSize: '2em'
+            }}
             onClick={async () => {
-              await fetch(
-                '../api/register',
-                {
-                  method: 'POST',
-                  headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify(formData)
-                }
-              )
+              if (formData.email) {
+                await fetch(
+                  '../api/register',
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Accept': 'application/json, text/plain, */*',
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      ...formData,
+                      date: new Date(),
+                    })
+                  }
+                )
+              }
               router.push('/jogo-da-memoria/jogo')
             }}
           >
             Jogar
           </Button>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <Button
             variant="contained"
             color="primary"
-            sx={buttonSx}
-            onClick={() => router.push('/jogo-da-memoria')}
+            sx={{
+              ...buttonSx,
+              fontSize: '2em'
+            }}
+            onClick={() => router.push('/jogo-da-memoria/jogar')}
           >
             Voltar
           </Button>
         </Grid>
       </Grid>
+      <ModalLGPD
+        open={openLgpd}
+        onClose={() => setOpenLgpd(false)}
+      />
     </Box>
   )
 }

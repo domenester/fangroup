@@ -173,19 +173,12 @@ function Jogo() {
           setShowPopup(false)
           handleReset()
         }}
-        onCancel={() => router.push('/jogo-da-memoria')}
+        onCancel={() => router.push('/jogo-da-memoria/jogar')}
         onClose={(event, reason) => {
           if (reason && reason == "backdropClick") return;
           setShowPopup(false)
         }}
       />
-      <Button
-        variant='contained'
-        sx={buttonSx}
-        onClick={() => router.push('/jogo-da-memoria')}
-      >
-        Voltar
-      </Button>
       <Grid container spacing={3} sx={{
         margin: 'auto',
         padding: '5em',
@@ -219,6 +212,16 @@ function Jogo() {
           renderGrid()
         }
       </Grid>
+      <Button
+        variant='contained'
+        sx={{
+          ...buttonSx,
+          fontSize: '2rem',
+        }}
+        onClick={() => router.push('/jogo-da-memoria/jogar')}
+      >
+        Voltar
+      </Button>
     </>
   )
 }

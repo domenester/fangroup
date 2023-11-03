@@ -1,5 +1,17 @@
 import { Grid, Button } from '@mui/material'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { initialConfig } from '@/config/initial'
+import { getMemoryGameConfig, setMemoryGameConfig } from '../../config/localStorage'
+
+const rootSx = {
+  margin: 'auto',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '100vh',
+  textAlign: 'center',
+}
 
 export const buttonSx = {
   textTransform: 'none',
@@ -9,6 +21,17 @@ export const buttonSx = {
 
 export default function Home() {
   const router = useRouter()
+  const [config, setConfig] = useState({} as any)
+
+  useEffect(() => {
+    if (localStorage) {
+      const _config = getMemoryGameConfig()
+      if (!_config) {
+        return setMemoryGameConfig(initialConfig)
+      }
+      setConfig(_config)
+    }
+  }, [])
 
   return (
     <Grid container sx={{
@@ -18,7 +41,7 @@ export default function Home() {
       alignItems: 'center',
       minHeight: '100vh',
       textAlign: 'center',
-      backgroundImage: 'url(/imagens/background-fangroup.jpg)',
+      backgroundImage: 'url(/imagens/jogo-da-memoria/background.jpg)',
       width: '100%',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
@@ -31,30 +54,21 @@ export default function Home() {
           color="primary"
           sx={buttonSx}
           onClick={() => {
-            return router.push('/jogo-da-memoria/jogar')
+            if (config.activateRegister) return router.push('/jogo-da-memoria/registro')
+            return router.push('/jogo-da-memoria/jogo')
           }}
         >
-          Iniciar
+          Jogar
         </Button>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} sx={{opacity: 0}}>
         <Button
           variant="contained"
           color="primary"
           sx={buttonSx}
-          onClick={() => router.push('/jogo-da-memoria/configuracao')}
+          onClick={() => router.push('/jogo-da-memoria')}
         >
-          Configurações
-        </Button>
-      </Grid>
-      <Grid item xs={12}>
-        <Button
-          variant="contained"
-          color="primary"
-          sx={buttonSx}
-          onClick={() => router.push('/jogo-da-memoria/informacoes')}
-        >
-          Informações
+          Voltar
         </Button>
       </Grid>
     </Grid>
