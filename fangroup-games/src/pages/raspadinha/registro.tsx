@@ -200,7 +200,7 @@ export default function Configuracao() {
             variant="contained"
             color="primary"
             sx={buttonSx}
-            onClick={() => router.push('/raspadinha')}
+            onClick={() => router.push('/raspadinha/jogar')}
           >
             Voltar
           </Button>

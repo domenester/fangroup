@@ -142,7 +142,7 @@ function Jogo() {
         onReset={() => onModalClose()}
         onCancel={() => {
           onModalClose(false)
-          setTimeout(() => router.push('/raspadinha'), 500)
+          setTimeout(() => router.push('/raspadinha/jogar'), 500)
         }}
         onClose={(event, reason) => {
           if (reason && reason == "backdropClick") return;
@@ -152,7 +152,7 @@ function Jogo() {
       <Button
         variant='contained'
         sx={buttonSx}
-        onClick={() => router.push('/raspadinha')}
+        onClick={() => router.push('/raspadinha/jogar')}
       >
         Voltar
       </Button>

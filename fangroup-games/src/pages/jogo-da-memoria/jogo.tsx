@@ -50,6 +50,7 @@ function Jogo() {
         '../api/memory-cards',
       )
       const {cards: _cards} = await response.json()
+      console.log('_cards: ', _cards);
       setCards(_cards)
     }
     runAsync()

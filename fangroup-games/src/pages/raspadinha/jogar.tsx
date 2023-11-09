@@ -1,8 +1,17 @@
+import { Grid, Button } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { memoryGameInitialConfig, scratchGameInitialConfig } from '@/config/initial'
-import { getMemoryGameConfig, setMemoryGameConfig, setScratchGameConfig } from '../config/localStorage'
-import { Button, Grid } from '@mui/material'
+import { scratchGameInitialConfig } from '@/config/initial'
+import { getScratchGameConfig, setScratchGameConfig } from '../../config/localStorage'
+
+const rootSx = {
+  margin: 'auto',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '100vh',
+  textAlign: 'center',
+}
 
 export const buttonSx = {
   textTransform: 'none',
@@ -12,16 +21,18 @@ export const buttonSx = {
 
 export default function Home() {
   const router = useRouter()
+  const [config, setConfig] = useState({} as any)
 
   useEffect(() => {
     if (localStorage) {
-      const _config = getMemoryGameConfig()
+      const _config = getScratchGameConfig()
       if (!_config) {
-        setMemoryGameConfig(memoryGameInitialConfig)
-        setScratchGameConfig(scratchGameInitialConfig)
+        return setScratchGameConfig(scratchGameInitialConfig)
       }
+      setConfig(_config)
     }
   }, [])
+
   return (
     <Grid container sx={{
       margin: 'auto',
@@ -30,7 +41,7 @@ export default function Home() {
       alignItems: 'center',
       minHeight: '100vh',
       textAlign: 'center',
-      backgroundImage: 'url(/imagens/background-fangroup.jpg)',
+      backgroundImage: 'url(/imagens/raspadinha/background.jpg)',
       width: '100%',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
@@ -42,19 +53,22 @@ export default function Home() {
           variant="contained"
           color="primary"
           sx={buttonSx}
-          onClick={() => router.push('/jogo-da-memoria')}
+          onClick={() => {
+            if (config.activateRegister) return router.push('/raspadinha/registro')
+            return router.push('/raspadinha/jogo')
+          }}
         >
-          Jogo da Memória
+          Jogar
         </Button>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} sx={{opacity: 0}}>
         <Button
           variant="contained"
           color="primary"
           sx={buttonSx}
           onClick={() => router.push('/raspadinha')}
         >
-          Raspadinha
+          Voltar
         </Button>
       </Grid>
     </Grid>

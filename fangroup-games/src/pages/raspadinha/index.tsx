@@ -31,7 +31,7 @@ export default function Home() {
       alignItems: 'center',
       minHeight: '100vh',
       textAlign: 'center',
-      backgroundImage: 'url(/imagens/raspadinha/background.jpg)',
+      backgroundImage: 'url(/imagens/background-fangroup.jpg)',
       width: '100%',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
@@ -44,8 +44,8 @@ export default function Home() {
           color="primary"
           sx={buttonSx}
           onClick={() => {
-            if (config.activateRegister) return router.push('/raspadinha/registro')
-            return router.push('/raspadinha/jogo')
+            if (config.activateRegister) return router.push('/raspadinha/jogar')
+            return router.push('/raspadinha/jogar')
           }}
         >
           Jogar
@@ -59,6 +59,16 @@ export default function Home() {
           onClick={() => router.push('/raspadinha/configuracao')}
         >
           Configurações
+        </Button>
+      </Grid>
+      <Grid item xs={12}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={buttonSx}
+          onClick={() => router.push('/')}
+        >
+          Voltar
         </Button>
       </Grid>
     </Grid>

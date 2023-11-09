@@ -57,6 +57,16 @@ export default function Home() {
           Informações
         </Button>
       </Grid>
+      <Grid item xs={12}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={buttonSx}
+          onClick={() => router.push('/')}
+        >
+          Voltar
+        </Button>
+      </Grid>
     </Grid>
   )
 }

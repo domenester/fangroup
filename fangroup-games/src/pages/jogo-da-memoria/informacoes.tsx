@@ -1,7 +1,7 @@
 import { Grid, Button, Chip } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { initialConfig } from '@/config/initial'
+import { memoryGameInitialConfig as initialConfig } from '@/config/initial'
 import { getMemoryGameConfig, setMemoryGameConfig } from '../../config/localStorage'
 import { format } from 'date-fns'
 
@@ -46,6 +46,7 @@ export default function Home() {
       const registerMappedByDate: any = {}
       data.forEach(
         (item: any) => {
+          if (!item.date) return
           const date = format(new Date(item.date), 'dd/MM/yyyy')
           if (!registerMappedByDate[date]) {
             registerMappedByDate[date] = []

@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-[{"lgpd":false,"nome":"N","email":"E","telefone":"T"},{"lgpd":true,"nome":"Alan","email":"alan@email.com","telefone":11997953111},{"lgpd":true,"nome":"Diogo","email":"dom@mail.com","telefone":11997953111},{"lgpd":false},{"lgpd":false},{"lgpd":false,"nome":"Diogo Domene","email":"dom@gmail.com","telefone":"11997953111"},{"lgpd":false,"corretor":true,"nome":"c","email":"c"},{"lgpd":false,"corretor":false},{"lgpd":false,"corretor":false},{"lgpd":false,"corretor":false}]
-=======
-[]
->>>>>>> 125e36fa7875ca637f5eca01ea324c3837f5e9e8
+[{"lgpd":true,"corretor":false,"email":"teste@mail.com","nome":"Teste","telefone":"11997953111","date":"2023-11-03T18:15:07.521Z"},{"lgpd":false,"corretor":false,"email":"diogodomene@gmail.com","nome":"Diogo Domene","telefone":"11997953111","date":"2023-11-03T18:16:23.993Z"},{"lgpd":false,"corretor":false},{"lgpd":false,"corretor":false},{"lgpd":false,"corretor":false},{"lgpd":false,"corretor":false}]
