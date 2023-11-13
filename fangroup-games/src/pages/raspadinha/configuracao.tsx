@@ -39,7 +39,7 @@ export default function Configuracao() {
       alignItems: 'center',
       minHeight: '100vh',
       textAlign: 'center',
-      backgroundImage: 'url(/imagens/background-fangroup.jpg)',
+      backgroundImage: 'url(/imagens/background-fangroup.jpeg)',
       width: '100%',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',

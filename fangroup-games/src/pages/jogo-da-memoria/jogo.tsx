@@ -188,7 +188,7 @@ function Jogo() {
         justifyContent: 'center',
         minHeight: '100vh',
         height: '100%',
-        backgroundImage: 'url(/imagens/jogo-da-memoria/background.jpg)',
+        backgroundImage: 'url(/imagens/jogo-da-memoria/background.jpeg)',
         width: '100%',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

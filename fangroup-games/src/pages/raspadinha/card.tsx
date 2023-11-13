@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { useRef }  from 'react';
 import ScratchCard from 'react-scratchcard-v2/dist';
-import imageSrc from '../../../public/imagens/raspadinha/capa.png';
+import imageSrc from '../../../public/imagens/raspadinha/capa.jpeg';
 
 export default function CardToScratch({
   backCardPath,
@@ -80,7 +80,7 @@ export default function CardToScratch({
           </>
         ) : backCardPath ? (
           <Image
-            src={'/imagens/raspadinha/capa.png'}
+            src={'/imagens/raspadinha/capa.jpeg'}
             alt={'capa'}
             width={200}
             height={200}

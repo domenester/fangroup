@@ -81,7 +81,7 @@ export default function Configuracao() {
       alignItems: 'center',
       minHeight: '100vh',
       textAlign: 'center',
-      backgroundImage: 'url(/imagens/jogo-da-memoria/background.jpg)',
+      backgroundImage: 'url(/imagens/raspadinha/background.jpeg)',
       width: '100%',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',

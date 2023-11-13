@@ -41,7 +41,7 @@ export default function Home() {
       alignItems: 'center',
       minHeight: '100vh',
       textAlign: 'center',
-      backgroundImage: 'url(/imagens/raspadinha/background.jpg)',
+      backgroundImage: 'url(/imagens/raspadinha/background.jpeg)',
       width: '100%',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',

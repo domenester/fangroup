@@ -1,7 +1,7 @@
 import { Grid, Button } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { initialConfig } from '@/config/initial'
+import { memoryGameInitialConfig as initialConfig } from '@/config/initial'
 import { getMemoryGameConfig, setMemoryGameConfig } from '../../config/localStorage'
 
 const rootSx = {
@@ -41,7 +41,7 @@ export default function Home() {
       alignItems: 'center',
       minHeight: '100vh',
       textAlign: 'center',
-      backgroundImage: 'url(/imagens/jogo-da-memoria/background.jpg)',
+      backgroundImage: 'url(/imagens/jogo-da-memoria/background.jpeg)',
       width: '100%',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',

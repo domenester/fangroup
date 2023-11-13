@@ -131,7 +131,7 @@ function Jogo() {
       cards
     })
     setShowPopup(false)
-    if (reload) setTimeout(() => window.location.reload(), 500)
+    if (reload) setTimeout(() => router.push('/raspadinha/jogar'), 500)
   }
 
   return (
@@ -162,7 +162,7 @@ function Jogo() {
         paddingTop: '2em',
         minHeight: '100vh',
         height: '100%',
-        backgroundImage: 'url(/imagens/raspadinha/background.jpg)',
+        backgroundImage: 'url(/imagens/raspadinha/background.jpeg)',
         width: '100%',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
